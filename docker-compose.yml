@@ -10,10 +10,11 @@ services:
     working_dir: /usr/src/smart-brain-api
     environment:
       POSTGRES_URI: postgres://aom:secret@postgres:5432/smart-brain-docker
+      REDIS_URI: redis://redis:6379
     ports:
-    - "3000:3000"
+      - "3000:3000"
     volumes:
-    - ./:/usr/src/smart-brain-api
+      - ./:/usr/src/smart-brain-api
 
 #  Postgres
   postgres:
@@ -24,4 +25,13 @@ services:
       POSTGRES_HOST: postgres
     build: ./postgres
     ports:
-    - "5432:5432"
+      - "5432:5432"
+
+# Redis
+  redis:
+    image: 'bitnami/redis:latest'
+    ports:
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+
